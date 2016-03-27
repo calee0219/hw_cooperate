@@ -235,7 +235,7 @@ int main(){
       data2[_w].Result = data2[w].Result;
       data2[_w].ItemId = data2[w].ItemId;
       data2[_w].Unix_timestamp = data2[w].Unix_timestamp;
-      data2[_w].UserId == data2[w].UserId;
+      data2[_w].UserId = data2[w].UserId;
       _w++;
     }
   }
