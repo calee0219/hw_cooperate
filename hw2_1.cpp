@@ -14,6 +14,7 @@ void ratio(int *i, int *threshold);
 int binarySearch(int *u, int *ii, int *t);
 int binarySearchToUser(int *u);
 int binarySearchToItem(int *u);
+int binarySearchforRatio(int *i);
 
 class User{
 public:
@@ -27,6 +28,7 @@ User *data;
 User *data1;
 User *data2;
 int size = 0;
+int size_ratio = 0;
 int onaji[30000];
 FILE *fin, *fout, *fin_database;
 
@@ -130,6 +132,24 @@ int binarySearchToItem(int *u){
   return 0;
 }
 
+int binarySearchforRatio(int *i){
+  int low = 0, high = size_ratio - 1;
+  int mid;
+  while(low <= high){
+    mid = (low + high) / 2;
+    if(data2[mid].ItemId == *i){
+      return mid;
+    }
+    else if(data2[mid].ItemId > *i){
+      high = mid - 1;
+    }
+    else if(data2[mid].ItemId < *i){
+      low = mid + 1;
+    }
+  }
+  return 0;
+}
+
 bool cmp(User a, User b){
   if(a.UserId < b.UserId)
     return true;
@@ -221,6 +241,7 @@ int main(){
     }
   }
   //_w is the size of data2
+  size_ratio = _w;
   while(n--){
     fscanf(fin, "%s", cmd);
     if(cmd[0] == 'a'){
@@ -380,5 +401,8 @@ void users(int *i1, int *i2, int *t1, int *t2){
   }
 }
 void ratio(int *i, int *threshold){
+  int mid = binarySearchforRatio(i);
+  while(data2[mid].ItemId == *i) mid--;
+  int piv = mid + 1;
   
 }
