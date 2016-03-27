@@ -31,3 +31,7 @@
 rec_log_train.txt
 !testaccept.out
 !testdata_mix.out
+!testitems.out
+!testusers.out
+!testfindtime_item.out
+!testratio.out
