@@ -10,6 +10,7 @@ using namespace std;
 void accept(int *u, int *ii, int *t);
 void items(int *u1, int *u2);
 void users(int *i1, int *i2, int *t1, int *t2);
+void ratio(int *i, int *threshold);
 int binarySearch(int *u, int *ii, int *t);
 int binarySearchToUser(int *u);
 int binarySearchToItem(int *u);
@@ -112,7 +113,7 @@ int binarySearchToUser(int *u){
 }
 
 int binarySearchToItem(int *u){
-  int low = 0, high = size1 - 1;
+  int low = 0, high = size - 1;
   int mid;
   while(low <= high){
     mid = (low + high) / 2;
@@ -182,6 +183,7 @@ int main(){
   int uu, ii, rr, tt;
   int item1, item2;
   int time1, time2;
+  int i, threshold;
   memset(onaji, -1, sizeof(onaji));
   data = new User[73209300];
   data1 = new User[73209300];
@@ -202,8 +204,8 @@ int main(){
     size++;
   }
   sort(data, data + size, cmp);
-  sort(data1, data1 + size1, cmp1);
-  sort(data2, data2 + size2, cmp2);
+  sort(data1, data1 + size, cmp1);
+  sort(data2, data2 + size, cmp2);
   while(n--){
     fscanf(fin, "%s", cmd);
     if(cmd[0] == 'a'){
@@ -219,7 +221,8 @@ int main(){
       users(&item1, &item2, &time1, &time2);
     }
     else if(cmd[0] == 'r'){
-      fscanf(fin, "%d%d", );
+      fscanf(fin, "%d%d", &i, &threshold);
+      ratio(&i, &threshold);
     }
     else if(cmd[0] == 'f'){
       //
@@ -360,4 +363,8 @@ void users(int *i1, int *i2, int *t1, int *t2){
       }
     }
   }
+}
+
+void ratio(int *i, int *threshold){
+  //
 }
