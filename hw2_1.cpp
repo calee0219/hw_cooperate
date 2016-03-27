@@ -240,6 +240,7 @@ int main(){
       _w++;
     }
   }
+  memset(userNumber, 0, sizeof(userNumber));
   size_ratio = _w;
   for(int w = 0; w < size_ratio; w++){
       userNumber[data2[w].UserId]++;
