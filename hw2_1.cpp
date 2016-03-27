@@ -193,7 +193,7 @@ bool cmp2(User a, User b){
 
 int main(){
   fin_database = fopen("rec_log_train.txt", "rb");
-  fin = fopen("testdata/testitems.in", "rb");
+  fin = fopen("testdata/testratio.in", "rb");
   fout = fopen("testdata/test.out", "wb");
   int n;
   char cmd[10];
