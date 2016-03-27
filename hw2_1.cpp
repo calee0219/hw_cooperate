@@ -289,13 +289,9 @@ void items(int *u1, int *u2){
   int mid2 = binarySearchToUser(u2);
   if(mid1 == 0 || mid2 == 0) fprintf(fout, "%s\n", s);
   else{
-    while(data[mid1].UserId == *u1){
-      mid1--;
-    }
+    while(data[mid1].UserId == *u1) mid1--;
+    while(data[mid2].UserId == *u2) mid2--;
     int piv1 = mid1 + 1;
-    while(data[mid2].UserId == *u2){
-       mid2--;
-    }
     int piv2 = mid2 + 1;
     int i = 0;
     while((data[piv1].UserId == *u1) && (data[piv2].UserId == *u2)){
@@ -314,7 +310,7 @@ void items(int *u1, int *u2){
       fprintf(fout, "%s\n", s);
     }
     else{
-      fprintf(fout, "%d\n", data[onaji[1]].ItemId);
+      fprintf(fout, "%d\n", data[onaji[0]].ItemId);
       int end = i;
       for(int j = 1; j < end; j++){
         if(data[onaji[j]].ItemId != data[onaji[j - 1]].ItemId){
