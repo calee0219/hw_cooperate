@@ -227,7 +227,6 @@ int main(){
   sort(data, data + size, cmp);
   sort(data1, data1 + size, cmp1);
   sort(data2, data2 + size, cmp2);
-  cout << data[0].UserId << endl;
   int _w = 1;
   for(int w = 1; w < size; w++){
     if(data2[w].Result == data2[w - 1].Result && data2[w].ItemId == data2[w - 1].ItemId && data2[w].Unix_timestamp ==
