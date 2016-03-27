@@ -192,9 +192,9 @@ bool cmp2(User a, User b){
 }
 
 int main(){
-  fin_database = fopen("/home/boyou/rec_log_train.txt", "rb");
-  fin = fopen("/home/boyou/testdata/testitems.in", "rb");
-  fout = fopen("/home/boyou/testdata/test.out", "wb");
+  fin_database = fopen("rec_log_train.txt", "rb");
+  fin = fopen("testdata/testitems.in", "rb");
+  fout = fopen("testdata/test.out", "wb");
   int n;
   char cmd[10];
   fscanf(fin, "%d", &n);
