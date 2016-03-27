@@ -405,10 +405,10 @@ void ratio(int *i, int *threshold){
   while(data2[piv].ItemId == *i){
     int thre = 0;
     int check = 0;
+    if(data2[piv].Result == 1) check = 1;
     piv++;
     while(data2[piv].ItemId == *i && data2[piv].UserId == data2[piv - 1].UserId){
       thre++;
-      if(data2[piv - 1].Result == 1) check = 1;
       if(data2[piv].Result == 1) check = 1;
       piv++;
     }
