@@ -173,8 +173,8 @@ bool cmp2(User a, User b){
 
 int main(){
   fin_database = fopen("/home/boyou/rec_log_train.txt", "rb");
-  fin = fopen("/home/boyou/testdata/testusers.in", "rb");
-  fout = fopen("/home/boyou/testdata/test.out", "wb");
+  fin = fopen("testdata/testusers.in", "rb");
+  fout = fopen("testdata/test.out", "wb");
   int n;
   char cmd[10];
   fscanf(fin, "%d", &n);
@@ -206,6 +206,21 @@ int main(){
   sort(data, data + size, cmp);
   sort(data1, data1 + size, cmp1);
   sort(data2, data2 + size, cmp2);
+  int _w = 1;
+  for(int w = 1, ; w < size; w++){
+    if(data2[w].Result == data2[w - 1].Result && data2[w].ItemId == data2[w - 1].ItemId && data2[w].Unix_timestamp ==
+       data2[w - 1].Unix_timestamp && data2[w].UserId == data2[w - 1].UserId){
+      //
+    }
+    else{
+      data2[_w].Result = data2[w].Result;
+      data2[_w].ItemId = data2[w].ItemId;
+      data2[_w].Unix_timestamp = data2[w].Unix_timestamp;
+      data2[_w].UserId == data2[w].UserId;
+      _w++;
+    }
+  }
+  //_w is the size of data2
   while(n--){
     fscanf(fin, "%s", cmd);
     if(cmd[0] == 'a'){
@@ -364,7 +379,6 @@ void users(int *i1, int *i2, int *t1, int *t2){
     }
   }
 }
-
 void ratio(int *i, int *threshold){
-  //
+  
 }
