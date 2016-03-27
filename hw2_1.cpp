@@ -207,7 +207,7 @@ int main(){
   sort(data1, data1 + size, cmp1);
   sort(data2, data2 + size, cmp2);
   int _w = 1;
-  for(int w = 1, ; w < size; w++){
+  for(int w = 1; w < size; w++){
     if(data2[w].Result == data2[w - 1].Result && data2[w].ItemId == data2[w - 1].ItemId && data2[w].Unix_timestamp ==
        data2[w - 1].Unix_timestamp && data2[w].UserId == data2[w - 1].UserId){
       //
