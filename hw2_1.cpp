@@ -419,7 +419,7 @@ void ratio(int *i, int *threshold){
     }
   }
   if(denominator == 0)
-    fprintf(fout, "%s", s);
+    fprintf(fout, "%s\n", s);
   else
     fprintf(fout, "%d/%d\n", numerator, denominator);
 }
