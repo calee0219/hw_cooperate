@@ -10,7 +10,7 @@ using namespace std;
 void accept(int *u, int *ii, int *t);
 void items(int *u1, int *u2);
 void users(int *i1, int *i2, int *t1, int *t2);
-void ratio(int *i, int *int);
+void ratio(int *i, int *ithreshold);
 int binarySearch (int *u, int *ii, int *t);
 int binarySearchToUser(int *u);
 int binarySearchToItem(int *u);
