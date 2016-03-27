@@ -10,8 +10,8 @@ using namespace std;
 void accept(int *u, int *ii, int *t);
 void items(int *u1, int *u2);
 void users(int *i1, int *i2, int *t1, int *t2);
-void ratio(int *i, int *threshold);
-int binarySearch(int *u, int *ii, int *t);
+void ratio(int *i, int *int);
+int binarySearch (int *u, int *ii, int *t);
 int binarySearchToUser(int *u);
 int binarySearchToItem(int *u);
 int binarySearchforRatio(int *i);
@@ -395,9 +395,84 @@ void users(int *i1, int *i2, int *t1, int *t2){
     }
   }
 }
+int useraccept[30000000];
+int userrefuse[30000000];
+
 void ratio(int *i, int *threshold){
   char s[] = "EMPTY";
   int mid = binarySearchforRatio(i);
+  int a = 0, b = 0;
+  int numerator = 0;
+  int denominator = 0;
+  if(!mid) fprintf(fout, "%s\n", s);
+  else{
+    while(data2[mid].ItemId == *i) mid--;
+    int piv = mid + 1;
+    while(data2[piv].ItemId == *i && piv < size_ratio){
+      int check = 0;
+      if(data2[piv].Result == 1) check = 1;
+      piv++;
+      while(data2[piv].UserId == data2[piv - 1].UserId && piv < size_ratio){
+        if(data2[piv].Result == 1) check = 1;
+      }
+      if(check) useraccept[a++] = data2[piv - 1].UserId;
+      else userrefuse[b++] = data2[piv - 1].UserId;
+    }
+    int count;
+    for(int k = 0; k < a; k++){
+      count = 0;
+      int mid1 = binarySearchToUser(&useraccept[k]);
+      while(data[mid1].UserId == useraccept[k]) mid1++;
+      int piv1 = mid1 + 1;
+      piv1++;
+      count++;
+      while(data[piv1].UserId == useraccept[k]){
+        if(data[piv1].UserId == data[piv1 - 1].UserId && data[piv1].ItemId == data[piv1 - 1].ItemId &&
+           data[piv1].Unix_timestamp && data[piv1 - 1].Unix_timestamp && data[piv1].Result == data[piv1 - 1].Result){
+          piv1++;
+          //count++;
+        }
+        else{
+          piv1++;
+          count++;
+        }
+      }
+      if(count > *threshold){
+        numerator++;
+        denominator++;
+      }
+    }
+
+    for(int k = 0; k < b; k++){
+      count = 0;
+      int mid2 = binarySearchToUser(&userrefuse[k]);
+      while(data[mid2].UserId == userrefuse[k]) mid2++;
+      int piv2 = mid2 + 1;
+      piv2++;
+      count++;
+      while(data[piv2].UserId == userrefuse[k]){
+        if(data[piv2].UserId == data[piv2 - 1].UserId && data[piv2].ItemId == data[piv2 - 1].ItemId &&
+           data[piv2].Unix_timestamp && data[piv2 - 1].Unix_timestamp && data[piv2].Result == data[piv2 - 1].Result){
+          piv2++;
+          //count++;
+        }
+        else{
+          piv2++;
+          count++;
+        }
+      }
+      if(count > *threshold){
+        //numerator++;
+        denominator++;
+      }
+    }
+
+    if(denominator == 0)
+      fprintf(fout, "%s\n", s);
+    else
+      fprintf(fout, "%d/%d\n", numerator, denominator);
+  }
+  /*
   if(!mid) fprintf(fout, "%s\n", s);
   else{
     while(data2[mid].ItemId == *i) mid--;
@@ -414,7 +489,6 @@ void ratio(int *i, int *threshold){
         if(data2[piv].Result == 1) check = 1;
         piv++;
       }
-      //thre + 1
       if(thre + 1 > *threshold){
         denominator++;
         if(check) numerator++;
@@ -425,4 +499,5 @@ void ratio(int *i, int *threshold){
     else
       fprintf(fout, "%d/%d\n", numerator, denominator);
   }
+  */
 }
