@@ -407,9 +407,10 @@ void ratio(int *i, int *threshold){
     while(data2[mid].ItemId == *i) mid--;
     int piv = mid + 1;
     while(data2[piv].ItemId == *i){
-      if(userNumber[data2[piv].UserId] > *threshold){
+      if(userNumber[data2[piv].UserId] > *threshold && data2[piv].Result == 1){
         numerator++;
       }
+      piv++;
     }
     for (auto& x: userNumber)
     {
