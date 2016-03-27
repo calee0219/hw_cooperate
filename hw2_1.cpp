@@ -4,7 +4,6 @@
 #include<cstring>
 #include<vector>
 #include<algorithm>
-#include<map>
 
 using namespace std;
 
@@ -16,7 +15,7 @@ int binarySearch (int *u, int *ii, int *t);
 int binarySearchToUser(int *u);
 int binarySearchToItem(int *u);
 int binarySearchforRatio(int *i);
-map<int,int> userNumber;
+int userNumber[2421060];
 
 class User{
 public:
@@ -228,6 +227,7 @@ int main(){
   sort(data, data + size, cmp);
   sort(data1, data1 + size, cmp1);
   sort(data2, data2 + size, cmp2);
+  cout << data[0].UserId << endl;
   int _w = 1;
   for(int w = 1; w < size; w++){
     if(data2[w].Result == data2[w - 1].Result && data2[w].ItemId == data2[w - 1].ItemId && data2[w].Unix_timestamp ==
@@ -243,10 +243,7 @@ int main(){
   }
   size_ratio = _w;
   for(int w = 0; w < size_ratio; w++){
-    if(userNumber.count(data2[w].UserId))
-        userNumber.insert(make_pair(data2[w].UserId,userNumber.at(data2[w].UserId)+1));
-    else
-        userNumber.insert(make_pair(data2[w].UserId,1));
+      userNumber[data2[w].UserId]++;
   }
   while(n--){
     fscanf(fin, "%s", cmd);
@@ -412,9 +409,9 @@ void ratio(int *i, int *threshold){
       }
       piv++;
     }
-    for (auto& x: userNumber)
+    for (int i = 100000; i < 2421060; ++i)
     {
-        if(x.second > *threshold)
+        if(userNumber[i] > *threshold)
             denominator++;
     }
     if(denominator == 0) fprintf(fout, "%s\n", s);
