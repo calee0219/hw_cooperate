@@ -240,7 +240,6 @@ int main(){
       _w++;
     }
   }
-  //_w is the size of data2
   size_ratio = _w;
   memset(userNumber, 0, sizeof(userNumber));
   for(int w = 0; w < size_ratio; w++){
@@ -265,9 +264,6 @@ int main(){
       ratio(&i, &threshold);
     }
     else if(cmd[0] == 'f'){
-      //
-    }
-    else{
       //
     }
   }
@@ -333,7 +329,6 @@ int users_3[70000000];
 void users(int *i1, int *i2, int *t1, int *t2){
   int mid1 = binarySearchToItem(i1);
   int mid2 = binarySearchToItem(i2);
-  //printf("%d %d\n", mid1, mid2);
   char s[] = "EMPTY";
   if(mid1 == 0 || mid2 == 0){
     fprintf(fout, "%s\n", s);
@@ -369,9 +364,7 @@ void users(int *i1, int *i2, int *t1, int *t2){
       fprintf(fout, "%s\n", s);
     else{
       sort(&users_1[0], &users_1[i]);
-      //for(int l = 0; l < i; l++) printf("%d\n", users_1[l]);
       sort(&users_2[0], &users_2[j]);
-      //for(int l = 0; l < j; l++) printf("%d\n", users_2[l]);
       int k1 = 0;
       int k2 = 0;
       int k3 = 0;
@@ -400,8 +393,6 @@ void users(int *i1, int *i2, int *t1, int *t2){
     }
   }
 }
-//int useraccept[30000000];
-//int userrefuse[30000000];
 
 void ratio(int *i, int *threshold){
   char s[] = "EMPTY";
