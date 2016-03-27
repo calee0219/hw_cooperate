@@ -408,6 +408,7 @@ void ratio(int *i, int *threshold){
     piv++;
     while(data2[piv].ItemId == *i && data2[piv].UserId == data2[piv - 1].UserId){
       thre++;
+      if(data2[piv - 1].Result == 1) check = 1;
       if(data2[piv].Result == 1) check = 1;
       piv++;
     }
@@ -417,7 +418,7 @@ void ratio(int *i, int *threshold){
       if(check) numerator++;
     }
   }
-  if(numerator == 0)
+  if(denominator == 0)
     fprintf(fout, "%s", s);
   else
     fprintf(fout, "%d/%d\n", numerator, denominator);
