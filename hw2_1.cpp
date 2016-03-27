@@ -24,8 +24,8 @@ public:
 
 User *data;
 User *data1;
+User *data2;
 int size = 0;
-int size1 = 0;
 int onaji[30000];
 FILE *fin, *fout, *fin_database;
 
@@ -155,6 +155,21 @@ bool cmp1(User a, User b){
     return false;
 }
 
+bool cmp2(User a, User b){
+  if(a.ItemId < b.ItemId)
+    return true;
+  else if(a.ItemId > b.ItemId)
+    return false;
+  else if(a.UserId < b.UserId)
+    return true;
+  else if(a.UserId > b.UserId)
+    return false;
+  else if(a.Unix_timestamp < b.Unix_timestamp)
+    return true;
+  else
+    return false;
+}
+
 int main(){
   fin_database = fopen("/home/boyou/rec_log_train.txt", "rb");
   fin = fopen("/home/boyou/testdata/testusers.in", "rb");
@@ -170,38 +185,25 @@ int main(){
   memset(onaji, -1, sizeof(onaji));
   data = new User[73209300];
   data1 = new User[73209300];
+  data2 = new User[73209300];
   while(fscanf(fin_database, "%d%d%d%d", &uu, &ii, &rr, &tt) == 4){
     data[size].UserId = uu;
+    data1[size].UserId = uu;
+    data2[size].UserId = uu;
     data[size].ItemId = ii;
+    data1[size].ItemId = ii;
+    data2[size].ItemId = ii;
     data[size].Result = rr;
+    data1[size].Result = rr;
+    data2[size].Result = rr;
     data[size].Unix_timestamp = tt;
+    data1[size].Unix_timestamp = tt;
+    data2[size].Unix_timestamp = tt;
     size++;
   }
   sort(data, data + size, cmp);
-  /*
-    for(int i = 0; i < 25; i++){
-    printf("%d %d %d %d\n", data[i].UserId, data[i].ItemId, data[i].Result,
-    data[i].Unix_timestamp);
-    }
-  */
-  fseek(fin_database, 0, SEEK_SET);
-  while(fscanf(fin_database, "%d%d%d%d", &uu, &ii, &rr, &tt) == 4){
-    data1[size1].UserId = uu;
-    data1[size1].ItemId = ii;
-    data1[size1].Result = rr;
-    data1[size1].Unix_timestamp = tt;
-    size1++;
-  }
   sort(data1, data1 + size1, cmp1);
-  /*
-  for(int i = 0; i < 25; i++){
-    printf("%d %d %d %d\n", data[i].ItemId, data[i].Unix_timestamp, data[i].UserId, data[i].Result);
-  }
-  */
-  /*
-  printf("the size of the data is %d\n", size);
-  printf("the size1 of the data1 is %d\n", size1);
-  */
+  sort(data2, data2 + size2, cmp2);
   while(n--){
     fscanf(fin, "%s", cmd);
     if(cmd[0] == 'a'){
@@ -217,7 +219,7 @@ int main(){
       users(&item1, &item2, &time1, &time2);
     }
     else if(cmd[0] == 'r'){
-      //
+      fscanf(fin, "%d%d", );
     }
     else if(cmd[0] == 'f'){
       //
@@ -231,6 +233,7 @@ int main(){
   fclose(fin_database);
   delete [] data;
   delete [] data1;
+  delete [] data2;
   return 0;
 }
 void accept(int *u, int *ii, int *t){
