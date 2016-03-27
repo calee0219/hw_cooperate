@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+
+# Otherfiles
+rec_log_train.txt
+!testaccept.out
+!testdata_mix.out
