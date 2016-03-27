@@ -235,7 +235,7 @@ int main(){
       data2[_w].Result = data2[w].Result;
       data2[_w].ItemId = data2[w].ItemId;
       data2[_w].Unix_timestamp = data2[w].Unix_timestamp;
-      data2[_w].UserId == data2[w].UserId;
+      data2[_w].UserId = data2[w].UserId;
       _w++;
     }
   }
@@ -398,30 +398,33 @@ void users(int *i1, int *i2, int *t1, int *t2){
   }
 }
 void ratio(int *i, int *threshold){
-  int mid = binarySearchforRatio(i);
-  while(data2[mid].ItemId == *i) mid--;
-  int piv = mid + 1;
-  int numerator = 0;
-  int denominator = 0;
   char s[] = "EMPTY";
-  while(data2[piv].ItemId == *i){
-    int thre = 0;
-    int check = 0;
-    if(data2[piv].Result == 1) check = 1;
-    piv++;
-    while(data2[piv].ItemId == *i && data2[piv].UserId == data2[piv - 1].UserId){
-      thre++;
+  int mid = binarySearchforRatio(i);
+  if(!mid) fprintf(fout, "%s\n", s);
+  else{
+    while(data2[mid].ItemId == *i) mid--;
+    int piv = mid + 1;
+    int numerator = 0;
+    int denominator = 0;
+    while(data2[piv].ItemId == *i && piv < size_ratio){
+      int thre = 0;
+      int check = 0;
       if(data2[piv].Result == 1) check = 1;
       piv++;
+      while(data2[piv].ItemId == *i && data2[piv].UserId == data2[piv - 1].UserId && piv < size_ratio){
+        thre++;
+        if(data2[piv].Result == 1) check = 1;
+        piv++;
+      }
+      //thre + 1
+      if(thre + 1 > *threshold){
+        denominator++;
+        if(check) numerator++;
+      }
     }
-    //thre + 1
-    if(thre + 1 > *threshold){
-      denominator++;
-      if(check) numerator++;
-    }
+    if(denominator == 0)
+      fprintf(fout, "%s\n", s);
+    else
+      fprintf(fout, "%d/%d\n", numerator, denominator);
   }
-  if(denominator == 0)
-    fprintf(fout, "%s\n", s);
-  else
-    fprintf(fout, "%d/%d\n", numerator, denominator);
 }
