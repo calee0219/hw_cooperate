@@ -193,8 +193,8 @@ bool cmp2(User a, User b){
 
 int main(){
   fin_database = fopen("/home/boyou/rec_log_train.txt", "rb");
-  fin = fopen("testdata/testratio.in", "rb");
-  fout = fopen("testdata/test.out", "wb");
+  fin = fopen("/home/boyou/testdata/testitems.in", "rb");
+  fout = fopen("/home/boyou/testdata/test.out", "wb");
   int n;
   char cmd[10];
   fscanf(fin, "%d", &n);
@@ -230,7 +230,6 @@ int main(){
   for(int w = 1; w < size; w++){
     if(data2[w].Result == data2[w - 1].Result && data2[w].ItemId == data2[w - 1].ItemId && data2[w].Unix_timestamp ==
        data2[w - 1].Unix_timestamp && data2[w].UserId == data2[w - 1].UserId){
-      //
     }
     else{
       data2[_w].Result = data2[w].Result;
@@ -414,6 +413,7 @@ void ratio(int *i, int *threshold){
     while(data2[piv].ItemId == *i && data2[piv].UserId == data2[piv - 1].UserId){
       thre++;
       if(data2[piv].Result == 1) check = 1;
+      piv++;
     }
     //thre + 1
     if(thre + 1 > *threshold){
