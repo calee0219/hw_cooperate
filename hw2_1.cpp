@@ -18,10 +18,10 @@ int binarySearchforRatio(int *i);
 
 class User{
 public:
-	int UserId;
-	int ItemId;
-	int Result;
-	int Unix_timestamp;
+  int UserId;
+  int ItemId;
+  int Result;
+  int Unix_timestamp;
 };
 
 User *data;
@@ -193,7 +193,7 @@ bool cmp2(User a, User b){
 
 int main(){
   fin_database = fopen("/home/boyou/rec_log_train.txt", "rb");
-  fin = fopen("testdata/testusers.in", "rb");
+  fin = fopen("testdata/testratio.in", "rb");
   fout = fopen("testdata/test.out", "wb");
   int n;
   char cmd[10];
@@ -404,5 +404,25 @@ void ratio(int *i, int *threshold){
   int mid = binarySearchforRatio(i);
   while(data2[mid].ItemId == *i) mid--;
   int piv = mid + 1;
-  
+  int numerator = 0;
+  int denominator = 0;
+  char s[] = "EMPTY";
+  while(data2[piv].ItemId == *i){
+    int thre = 0;
+    int check = 0;
+    piv++;
+    while(data2[piv].ItemId == *i && data2[piv].UserId == data2[piv - 1].UserId){
+      thre++;
+      if(data2[piv].Result == 1) check = 1;
+    }
+    //thre + 1
+    if(thre + 1 > *threshold){
+      denominator++;
+      if(check) numerator++;
+    }
+  }
+  if(numerator == 0)
+    fprintf(fout, "%s", s);
+  else
+    fprintf(fout, "%d/%d\n", numerator, denominator);
 }
