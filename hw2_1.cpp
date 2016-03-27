@@ -241,8 +241,6 @@ int main(){
   }
   //_w is the size of data2
   size_ratio = _w;
-  for(int i = 0; i < _w; ++i)
-      cout << data2[i].UserId << ' ' << data2[i].ItemId << ' ' << data2[i].Unix_timestamp << ' ' << data2[i].Result << endl;
   while(n--){
     fscanf(fin, "%s", cmd);
     if(cmd[0] == 'a'){
