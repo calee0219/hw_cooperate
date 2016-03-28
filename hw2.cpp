@@ -195,7 +195,7 @@ bool cmp2(User a, User b){
 }
 
 int main(){
-  fin_database = fopen("/tmp2/KDDCUP2012/track1/rec_log_train.txt", "rb");
+  fin_database = fopen("rec_log_train.txt", "rb");
   fin = stdin;
   fout = stdout;
   int n;
