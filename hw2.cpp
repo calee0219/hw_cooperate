@@ -196,8 +196,8 @@ bool cmp2(User a, User b){
 
 int main(){
   fin_database = fopen("/tmp2/KDDCUP2012/track1/rec_log_train.txt", "rb");
-  fin = fopen("testdata_mix.in", "rb");
-  fout = fopen("test.out", "wb");
+  fin = stdin;
+  fout = stdout;
   int n;
   char cmd[10];
   fscanf(fin, "%d", &n);
@@ -406,15 +406,17 @@ void users(int *i1, int *i2, int *t1, int *t2){
 }
 
 void ratio(int *i, int *threshold){
+  char s[] = "EMPTY";
   int mid = binarySearchforRatio(i);
   int numerator = 0;
   int denominator = 0;
   if(!mid){
-    for(int i = 100000; i < 2421060; ++i){
-      if(userNumber[i] > *threshold)
-        denominator++;
-    }
-    fprintf(fout, "%d/%d\n", numerator, denominator);
+	  for (int i = 100000; i < 2421060; ++i)
+	  {
+		  if(userNumber[i] > *threshold)
+			  denominator++;
+	  }
+	  fprintf(fout, "%d/%d\n", numerator, denominator);
   }
   else{
     while(data2[mid].ItemId == *i) mid--;
@@ -426,11 +428,12 @@ void ratio(int *i, int *threshold){
         while(data2[piv].UserId == data2[piv-1].UserId) piv++;
       }
       else
-        piv++;
+          piv++;
     }
-    for(int i = 100000; i < 2421060; ++i){
-      if(userNumber[i] > *threshold)
-        denominator++;
+    for (int i = 100000; i < 2421060; ++i)
+    {
+        if(userNumber[i] > *threshold)
+            denominator++;
     }
     fprintf(fout, "%d/%d\n", numerator, denominator);
   }
@@ -458,14 +461,14 @@ void findtime_item(int *i, int *count){
     int k = 0;
     if(n == 0) fprintf(fout, "%s\n", s);
     else{
-      fprintf(fout, "%d\n", time1[k]);
+	    fprintf(fout, "%d\n", time1[k]);
       k++;
       while(k < n){
-        if(time1[k] != time1[k - 1]){
-          fprintf(fout, "%d\n", time1[k]);
-          k++;
-        }
-        else k++;
+	      if(time1[k] != time1[k - 1]){
+		      fprintf(fout, "%d\n", time1[k]);
+		      k++;
+	      }
+	      else k++;
       }
     }
   }
