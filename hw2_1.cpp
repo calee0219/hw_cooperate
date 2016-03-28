@@ -11,6 +11,7 @@ void accept(int *u, int *ii, int *t);
 void items(int *u1, int *u2);
 void users(int *i1, int *i2, int *t1, int *t2);
 void ratio(int *i, int *ithreshold);
+void findtime_item(int *i, int *count);
 int binarySearch (int *u, int *ii, int *t);
 int binarySearchToUser(int *u);
 int binarySearchToItem(int *u);
@@ -31,6 +32,7 @@ User *data2;
 int size = 0;
 int size_ratio = 0;
 int onaji[30000];
+int findTime[30000000];
 FILE *fin, *fout, *fin_database;
 
 int binarySearch(int *u, int *ii, int *t){
@@ -193,8 +195,8 @@ bool cmp2(User a, User b){
 }
 
 int main(){
-  fin_database = fopen("rec_log_train.txt", "rb");
-  fin = fopen("testdata/testratio.in", "rb");
+  fin_database = fopen("/home/boyou/rec_log_train.txt", "rb");
+  fin = fopen("testdata/testfindtime_item.in", "rb");
   fout = fopen("testdata/test.out", "wb");
   int n;
   char cmd[10];
@@ -264,7 +266,16 @@ int main(){
       ratio(&i, &threshold);
     }
     else if(cmd[0] == 'f'){
-      //
+      int count = 0;
+      char c;
+      fscanf(fin, "%d", &i);
+      fscanf(fin, "%d", &findTime[count]);
+      count++;
+      while(fscanf(fin, "%c", &c) == 1 && c == ' '){
+        fscanf(fin, "%d", &findTime[count]);
+        count++;
+      }
+      findtime_item(&i, &count);
     }
   }
   fclose(fin);
@@ -419,5 +430,40 @@ void ratio(int *i, int *threshold){
     }
     if(denominator == 0) fprintf(fout, "%s\n", s);
     else fprintf(fout, "%d/%d\n", numerator, denominator);
+  }
+}
+int time1[30000000];
+void findtime_item(int *i, int *count){
+  char s[] = "EMPTY";
+  int n = 0;
+  int mid = binarySearchToItem(i);
+  if(!mid) fprintf(fout, "%s\n", s);
+  else{
+    while(data1[mid].ItemId == *i) mid--;
+    int piv = mid + 1;
+    while(data1[piv].ItemId == *i){
+      int check = 0;
+      for(int i = 0; i < *count; i++)
+        if(data1[piv].UserId == findTime[i])
+          check = 1;
+      if(check){
+        time1[n] = data1[piv].Unix_timestamp;
+        n++;
+      }
+      piv++;
+    }
+    int k = 1;
+    if(n == 0) fprintf(fout, "%s\n", s);
+    else{
+      fprintf(fout, "%d\n", findTime[k]);
+      k++;
+      while(k < n){
+        if(findTime[k] != findTime[k - 1]){
+          fprintf(fout, "%d\n", findTime[k]);
+          k++;
+        }
+        else k++;
+      }
+    }
   }
 }
